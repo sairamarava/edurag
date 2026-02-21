@@ -4,6 +4,11 @@ import ChatMessages from "./ChatMessages";
 import ChatInput from "./ChatInput";
 import { sendChatMessage } from "../services/api";
 
+function cleanAnswer(answer) {
+  const fallback = "The information is not available in the provided college data.";
+  return answer.replace(fallback, "").trim();
+}
+
 export default function ChatContainer() {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -18,7 +23,11 @@ export default function ChatContainer() {
       const data = await sendChatMessage(query);
       setMessages((prev) => [
         ...prev,
-        { role: "assistant", text: data.answer },
+        {
+          role: "assistant",
+          text: cleanAnswer(data.answer),
+          sources: data.sources,
+        },
       ]);
     } catch {
       setMessages((prev) => [
