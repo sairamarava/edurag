@@ -28,7 +28,7 @@ export default function ChatHeader() {
       <img
         src="/logo.png"
         alt="EduRAG Logo"
-        className="h-8 w-8 object-contain"
+        className="h-8 w-8 object-contain cursor-pointer opacity-90"
       />
     </div>
   );
